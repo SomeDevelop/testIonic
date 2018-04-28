@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic'])
+var app = angular.module('starter', ['ionic', 'firebase'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,6 +22,8 @@ angular.module('starter', ['ionic'])
   });
 })
 
+.constant('FURL', 'https://testapp-31fe1.firebaseio.com/')
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -29,6 +31,12 @@ angular.module('starter', ['ionic'])
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html'
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'AuthCtrl as auth'
   })
 
   .state('app.profile', {
@@ -60,5 +68,5 @@ angular.module('starter', ['ionic'])
 
   
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/login');
 });
